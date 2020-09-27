@@ -53,6 +53,7 @@ function nextPage(){
 				});
 			});
 			setTimeout(function(){
+				console.log(date);
 				driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=' + process.argv[4] + '&date=' + date);	
 				ifPageReady();
 			}, 2000);
