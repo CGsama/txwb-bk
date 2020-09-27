@@ -2,7 +2,7 @@
 
 安装node.js
 
-npm i
+npm install selenium-webdriver
 
 复制对应版本chromedriver.exe到此目录下
 
