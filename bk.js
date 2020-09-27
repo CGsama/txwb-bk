@@ -53,7 +53,7 @@ function nextPage(){
 				});
 			});
 			setTimeout(function(){
-				driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=0&date=' + date);	
+				driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=' + process.argv[4] + '&date=' + date);	
 				ifPageReady();
 			}, 2000);
 		}
@@ -86,6 +86,6 @@ function ifPageReady(){
 
 driver.get('http://t.qq.com/Furendo/mine?filter=0&date=20191231');
 setTimeout(function(){
-	driver.get('http://t.qq.com/' + process.argv[2] + '/mine' + process.argv[4] + 'filter=0&date=' + process.argv[3]);	
+	driver.get('http://t.qq.com/' + process.argv[2] + '/minefilter=' + process.argv[4] + '&date=' + process.argv[3]);	
 	ifPageReady();
 }, 60000);
