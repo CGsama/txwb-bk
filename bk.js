@@ -72,6 +72,6 @@ function ifPageReady(){
 
 driver.get('http://t.qq.com/Furendo/mine?filter=0&date=20191231');
 setTimeout(function(){
-	driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=0&date=20191231');	
+	driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=0&date=' + process.argv[3]);	
 	ifPageReady();
 }, 60000);
