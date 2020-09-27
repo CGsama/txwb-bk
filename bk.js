@@ -1,4 +1,6 @@
 var fs = require('fs');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');
 var webdriver = require('selenium-webdriver');
 var By = webdriver.By;
 var until = webdriver.until;
@@ -40,6 +42,24 @@ function nextPage(){
 			});
 		}
 	});
+	setTimeout(function(){
+		if(state == 0){
+			date = "999999999";
+			driver.getPageSource().then(function(str){
+				str.match(/title="(20\d+)年(\d+)月(\d+)日/g).forEach(function(datestr){
+					match = datestr.match(/title="(20\d+)年(\d+)月(\d+)日/);
+					datestr = match[1] + ("000" + match[2]).slice(-2) + match[3];
+					if(parseInt(date) < parseInt(datestr)){
+						date = datestr;
+					}
+				});
+			});
+			setTimeout(function(){
+				driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=0&date=' + date);	
+				ifPageReady();
+			}, 2000);
+		}
+	}, 1000);
 }
 function ifPageReady(){
 	driver.wait(function() {
@@ -48,22 +68,20 @@ function ifPageReady(){
 		});
 	});
 	setTimeout(function(){
-		driver.findElement(By.xpath('//body')).then(function(body){
-			driver.getPageSource().then(function(str){
-				if(str.indexOf('<a href="#" class="delBtn">删除</a>') == -1){
-					driver.navigate().refresh().then(function(){
-						setTimeout(ifPageReady, 1000);
-					});
-				}else{
-					driver.executeScript('window.scrollTo(0,10000);').then(function(){
-						setTimeout(function(){
-							driver.executeScript('window.scrollTo(0,10000);').then(function(){
-								setTimeout(saveNotes, 1000);
-							});
-						}, 1000);
-					});
-				}
-			});
+		driver.getPageSource().then(function(str){
+			if(str.indexOf('<a href="#" class="delBtn">删除</a>') == -1){
+				driver.navigate().refresh().then(function(){
+					setTimeout(ifPageReady, 1000);
+				});
+			}else{
+				driver.executeScript('window.scrollTo(0,10000);').then(function(){
+					setTimeout(function(){
+						driver.executeScript('window.scrollTo(0,10000);').then(function(){
+							setTimeout(saveNotes, 1000);
+						});
+					}, 1000);
+				});
+			}
 		});
 	}, 10000);
 }
