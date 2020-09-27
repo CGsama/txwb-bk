@@ -10,4 +10,8 @@ npm install selenium-webdriver
 
 比如node bk Furendo 20191231 0
 
-运行后使用扫码登录，之后就会自动备份100页到txwb.bak文件
+运行后使用扫码登录，之后就会自动备份到txwb.bak文件
+
+完成后运行node mediahash来获取所有图片网址
+
+bash ./getimg.sh 下载所有图片
