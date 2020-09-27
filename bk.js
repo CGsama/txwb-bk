@@ -1,6 +1,4 @@
 var fs = require('fs');
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
 var webdriver = require('selenium-webdriver');
 var By = webdriver.By;
 var until = webdriver.until;
