@@ -81,7 +81,7 @@ function ifPageReady(){
 				});
 			}
 		});
-	}, 10000);
+	}, 5000);
 }
 
 driver.get('http://t.qq.com/Furendo/mine?filter=0&date=20191231');
