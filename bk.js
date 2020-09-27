@@ -47,7 +47,7 @@ function nextPage(){
 				str.match(/title="(20\d+)年(\d+)月(\d+)日/g).forEach(function(datestr){
 					match = datestr.match(/title="(20\d+)年(\d+)月(\d+)日/);
 					datestr = match[1] + ("000" + match[2]).slice(-2) + match[3];
-					if(parseInt(date) < parseInt(datestr)){
+					if(parseInt(date) > parseInt(datestr)){
 						date = datestr;
 					}
 				});
