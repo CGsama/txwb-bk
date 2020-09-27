@@ -1,0 +1,77 @@
+var fs = require('fs');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');
+var webdriver = require('selenium-webdriver');
+var By = webdriver.By;
+var until = webdriver.until;
+var driver = new webdriver.Builder().forBrowser('chrome').build();
+
+var state = 0;
+
+function saveNotes(){
+setTimeout(nextPage, 2000);
+driver.getCurrentUrl().then(function(url){
+	fs.appendFileSync("txwb.bak", "<!-- URL:" + url + " -->\n\n\n");
+});
+driver.findElements(By.xpath('//*[@id="talkList"]/li')).then(function(items){
+	items.forEach(function(item){
+		item.getAttribute("id").then(function(id){
+			item.getAttribute('outerHTML').then(function(msg){
+				fs.appendFileSync("txwb.bak", "<!-- " + id + " -->");
+				fs.appendFileSync("txwb.bak", msg);
+				fs.appendFileSync("txwb.bak", "\n\n");
+			});
+		});
+	});
+});
+}
+
+function nextPage(){
+	state = 0;
+	driver.findElements(By.xpath('//*[@id="pageNav"]/a')).then(function(items){
+		for(item of items){
+			item.getAttribute('innerHTML').then(function(str){
+				if(str.indexOf("下一页") != -1){
+					if(state == 0){
+						state = 1;
+						item.click().then(function(){
+							setTimeout(ifPageReady, 5000);
+						});
+					}
+				}
+			});
+		}
+	});
+}
+function ifPageReady(){
+	driver.wait(function() {
+		return driver.executeScript('return document.readyState').then(function(readyState) {
+			return readyState === 'complete';
+		});
+	});
+	setTimeout(function(){
+		driver.findElement(By.xpath('//body')).then(function(body){
+			driver.getPageSource().then(function(str){
+				if(str.indexOf('<a href="#" class="delBtn">删除</a>') == -1){
+					driver.navigate().refresh().then(function(){
+						setTimeout(ifPageReady, 1000);
+					});
+				}else{
+					driver.executeScript('window.scrollTo(0,10000);').then(function(){
+						setTimeout(function(){
+							driver.executeScript('window.scrollTo(0,10000);').then(function(){
+								setTimeout(saveNotes, 1000);
+							});
+						}, 1000);
+					});
+				}
+			});
+		});
+	}, 10000);
+}
+
+driver.get('http://t.qq.com/Furendo/mine?filter=0&date=20191231');
+setTimeout(function(){
+	driver.get('http://t.qq.com/' + process.argv[2] + '/mine?filter=0&date=20191231');	
+	ifPageReady();
+}, 60000);
