@@ -1,10 +1,10 @@
 #!/bin/bash
-mkdir -p 2000
+mkdir -p $1
 while read fhash; do
-  FILE=./2000/$fhash
+  FILE=./$1/$fhash
   if [ -f $FILE ]; then
     echo "File $FILE exists."
   else
-    wget -O ./2000/$fhash http://t1.qpic.cn/mblogpic/$fhash/2000
+    wget -O ./$1/$fhash http://$1/mblogpic/$fhash/2000
   fi
-done < media.hash
+done < $2
