@@ -8,12 +8,14 @@ npm install selenium-webdriver
 
 运行node bk 你的id 日期 0:所有1:原创
 
-比如node bk Furendo 20191231 1
+比如node bk Furendo 20191231 1 《-----推荐！最后6小时没时间了，把furendo换成你的id就好
 
-运行后使用扫码登录，之后就会自动备份到txwb.bak文件
-
-注意！！！刚刚才发现！以下两步骤请手动修改文件里的domain至这四个，运行四遍 【mblogpic.store.qq.com】【t1.qpic.cn】【t2.qpic.cn】【t3.qpic.cn】
+运行后一分钟内使用扫码登录，之后就会自动备份到txwb.bak文件
 
 完成后运行node mediahash来获取所有图片网址
 
-bash ./getimg.sh 下载所有图片
+下载所有图片:
+bash run.sh mblogpic.store.qq.com media.store.hash
+bash run.sh t0.qpic.cn media.t0.hash
+bash run.sh t1.qpic.cn media.t1.hash
+bash run.sh t2.qpic.cn media.t2.hash
