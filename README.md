@@ -15,7 +15,11 @@ npm install selenium-webdriver
 完成后运行node mediahash来获取所有图片网址
 
 下载所有图片:
+
 bash run.sh mblogpic.store.qq.com media.store.hash
+
 bash run.sh t0.qpic.cn media.t0.hash
+
 bash run.sh t1.qpic.cn media.t1.hash
+
 bash run.sh t2.qpic.cn media.t2.hash
