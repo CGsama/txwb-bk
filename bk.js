@@ -44,8 +44,8 @@ function nextPage(){
 		if(state == 0){
 			date = "999999999";
 			driver.getPageSource().then(function(str){
-				str.match(/title="(20\d+)年(\d+)月(\d+)日/g).forEach(function(datestr){
-					match = datestr.match(/title="(20\d+)年(\d+)月(\d+)日/);
+				str.match(/>\s*(20\d+)年(\d+)月(\d+)日[0-9:\s]+<\/a>\s*<\/span>\s*<div class="funBox">/g).forEach(function(datestr){
+					match = datestr.match(/>\s*(20\d+)年(\d+)月(\d+)日[0-9:\s]+<\/a>\s*<\/span>\s*<div class="funBox">/);
 					datestr = match[1] + ("000" + match[2]).slice(-2) + ("000" + match[3]).slice(-2);
 					if(parseInt(date) > parseInt(datestr)){
 						date = datestr;
