@@ -23,3 +23,8 @@ bash run.sh t0.qpic.cn media.t0.hash
 bash run.sh t1.qpic.cn media.t1.hash
 
 bash run.sh t2.qpic.cn media.t2.hash
+
+
+更新下载官方给的备份里左右的图片
+
+cat 你的qq号.html | sed -n 's/img src=/\n/gp' | sed -n 's/".*mblogpic\/.*\/2000.∗mblogpic\/.∗\/2000.*/\1/p' | cat | xargs --max-procs=50 -n1 ./dl.sh
