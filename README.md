@@ -25,8 +25,8 @@ bash run.sh t1.qpic.cn media.t1.hash
 bash run.sh t2.qpic.cn media.t2.hash
 
 
-更新下载官方给的备份里左右的图片
+更新下载官方给的备份里左右的图片，根据电脑性能和带宽可以把wmax-procs=50调到数千来加速下载，1000大概10分钟就把我的全下载下来了
 
 ```
-cat 你的qq号.html | sed -n 's/img src=/\n/gp' | sed -n 's/".*mblogpic\/.*\/2000.∗mblogpic\/.∗\/2000.*/\1/p' | cat | xargs --max-procs=50 -n1 ./dl.sh
+cat 你的qq号.html | sed -n 's/img src=/\n/gp' | sed -n 's/".*mblogpic\/.*\/2000.∗mblogpic\/.∗\/2000.*/\1/p' | cat | xargs wmax-procs=50 -n1 ./dl.sh
 ```
