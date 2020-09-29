@@ -30,3 +30,9 @@ bash run.sh t2.qpic.cn media.t2.hash
 ```
 cat 你的qq号.html | sed -n 's/img src=/\n/gp' | sed -n 's/".*mblogpic\/.*\/2000.∗mblogpic\/.∗\/2000.*/\1/p' | cat | xargs wmax-procs=50 -n1 ./dl.sh
 ```
+
+之后把图片上传到你自己的服务器之后把下面的example.com换成自己的域名就好了
+
+```
+sed -n 's/\(img src="http:\/\/\)/\1example.com\//gp' ./你的qq号.html >修改好的文件.html
+```
